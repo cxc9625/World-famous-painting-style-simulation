@@ -2,7 +2,8 @@
 ## 2019年毕业设计
 ### 基于深度学习的艺术风格迁移
 本项目实现了基于WEB端的开发，如果要在本地运行需要调用yarn
-```yarn -prep
+```
+   yarn -prep
    yarn -start
 ```
 就可以在localhost来运行
