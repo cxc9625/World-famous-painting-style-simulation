@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-91864013-5"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'UA-91864013-5');
+    </script>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>艺术风格化——陈祥诚毕业设计</title>
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
+
+    <!-- Bootstrap core CSS -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/css/bootstrap.min.css" rel="stylesheet">
+<script src="dist/bundle.js"></script>
+</head>
+
+<style>
+.centered {
+  margin: auto;    
+  display: block;
+}
+</style>
+
+<body>
+
+<input type="file" id="file-select" style="display: none" accept="image/x-png,image/gif,image/jpeg"/>
+<!--Heading -->
+<div class="jumbotron jumbotron-fluid py-4" style="text-align: center; background-color: #f5f5f5;">
+    <div class="container">
+      <h4>基于深度学习的世界名画风格模拟——陈祥诚毕业设计</h1>
+    </div>
+  </div>
+<div class="">
+<div id="mobile-warning" hidden class="alert alert-warning" role="alert">
+  暂时没有适配移动端,生成图像可能会黑屏！
+</div>
+<ul class="nav nav-tabs nav-fill" id="myTab" role="tablist">
+  <li class="nav-item">
+    <a class="nav-link active" id="stylize-tab" data-toggle="tab" href="#stylize" role="tab" aria-controls="stylize" aria-selected="true">风格化图像</a>
+  </li>
+
+</ul>
+<div class="tab-content" id="myTabContent">
+  <div class="tab-pane fade show active" id="stylize" role="tabpanel" aria-labelledby="stylize-tab">
+      <div class="container">
+        <div class="row my-4">
+          <div class="col mx-5 my-4">
+              <img id="content-img" class="centered" src="images/tiananmen.jpg" height=256></img>
+              <br>
+              <label for="content-img-size">内容图像大小</label>
+              <i class="far fa-question-circle" data-toggle="tooltip" data-placement="top" 
+              title="拖动滑杆以调整图片大小"></i>
+              <input type="range" min="256" max="400" value="256" class="custom-range centered" id="content-img-size" >
+              <br>
+              <select id="content-select" class="centered custom-select">
+                <option value="" disabled>选择内容</option>
+                <option value="pic">照一张照片</option>
+                <option value="file">从电脑文件中选择</option>
+                <option value="stata">楼房</option>
+                <option value="diana">人物</option>
+                <option value="golden_gate">大桥</option>
+                <option value="beach">海滩</option>
+                <option value="chicago" >城市</option>
+								<option value="tiananmen" selected="selected">天安门</option>
+              </select>
+          </div>
+          <div class="col mx-5 my-4">
+              <img id="style-img" class="centered" crossorigin="anonymous" src="images/richu.jpg" height=256></img>
+              <br>
+              <label for="style-img-size">风格图像大小</label>
+              <i class="far fa-question-circle" data-toggle="tooltip" data-placement="top" 
+              title='拖动滑杆以调整图片大小'></i>
+              <input id="style-img-square" type="checkbox" style="vertical-align: middle; float: right;"
+              data-toggle="tooltip" data-placement="top" 
+              title="正方形图像">
+              <input type="range" min="100" max="400" value="256" class="custom-range centered" id="style-img-size">
+              <br>
+              <select id="style-select" class="centered custom-select">
+                <option value="" disabled>选择一个风格图片</option>
+                <option value="file">从电脑文件中选择</option>
+                <option value="random">选自网络的随机图片</option>
+								<option value="richu" selected="selected">《日出·印象》-莫奈</option>
+								<option value="nahan">《呐喊》-爱德华·蒙克</option>
+								<option value="xiangrikui">《向日葵》-梵高</option>
+								<option value="kuqi">《哭泣的女人》-毕加索</option>
+								<option value="xingkong">《星空夜》-梵高</option>
+								<option value="mengna">《蒙娜丽莎》-达·芬奇</option>
+                <option value="udnie">图案1</option>
+                <option value="stripes">图案2</option>
+                <option value="bricks">砖块</option>
+                <option value="clouds">云</option>
+                <option value="towers">塔</option>
+                <option value="sketch">线条</option>
+                <option value="seaport" >风格1</option>
+                <option value="red_circles">风格2</option>
+                <option value="zigzag">风格3</option>
+
+              </select>
+          </div>
+        </div>
+        <div class="row my-4">
+          <div class="col-md-6 offset-md-3">
+            <canvas id="stylized" class="centered"></canvas>
+            <br>
+            <label for="stylized-img-ratio">风格化融合度</label>
+            <i class="far fa-question-circle" data-toggle="tooltip" data-placement="top" 
+            title="滑动滑杆来调整风格化融合度,通过内容和样式图像的样式向量之间的插值来完成。"></i>
+            <input type="range" min="0" max="100" value="100" class="custom-range centered" id="stylized-img-ratio">
+          </div>
+        </div>
+        <div class="row my-4">
+          <div class="col-md-5 offset-md-3">
+              <button disabled id="style-button" type="button" class="btn btn-primary btn-block">正在调用深度学习模型...请稍等...</button>
+          </div>
+          <div class="col-md-1">
+              <button type="button" id="randomize" class="btn btn-light btn-block">
+                <i class="fas fa-random" data-toggle="tooltip" data-placement="top" 
+                title="随机"></i>
+              </button>
+          </div>
+        </div>
+      </div>
+  </div>
+  <div class="tab-pane fade" id="combine" role="tabpanel" aria-labelledby="combine-tab">
+    <div class="container">
+      <div class="row my-4">
+        <div class="col mx-5 my-4">
+            <img id="c-style-img-1" class="centered" crossorigin="anonymous" src="images/stripes.jpg" height=256></img>
+            <br>
+            <label for="c-style-img-1-size">Style A Size</label>
+            <i class="far fa-question-circle" data-toggle="tooltip" data-placement="top" 
+            title="Changing the size of a style image usually affects the texture "seen" by the network."></i>
+            <input id="c-style-1-square" type="checkbox" style="vertical-align: middle; float: right;"
+            data-toggle="tooltip" data-placement="top" 
+            title="Force image to square">
+            <input type="range" min="100" max="400" value="256" class="custom-range centered" id="c-style-img-1-size">
+            <br>
+            <select id="c-style-1-select" class="centered custom-select">
+            </select>
+        </div>
+        <div class="col mx-5 my-4">
+            <img id="c-style-img-2" class="centered" crossorigin="anonymous" src="images/bricks.jpg" height=256></img>
+            <br>
+            <label for="c-style-img-2-size">Style B Size</label>
+            <i class="far fa-question-circle" data-toggle="tooltip" data-placement="top" 
+            title="Changing the size of a style image usually affects the texture "seen" by the network."></i>
+            <input id="c-style-2-square" type="checkbox" style="vertical-align: middle; float: right;"
+            data-toggle="tooltip" data-placement="top" 
+            title="Force image to square">
+            <input type="range" min="100" max="400" value="256" class="custom-range centered" id="c-style-img-2-size">
+            <br>
+            <select id="c-style-2-select" class="centered custom-select">
+            </select>
+        </div>
+      </div>
+      <div class="row my-4">
+        <div class="col-md-6 offset-md-3">
+            <img id="c-content-img" class="centered" src="images/statue_of_liberty.jpg" height=256></img>
+            <br>
+            <label for="c-content-img-size">Content image size</label>
+            <i class="far fa-question-circle" data-toggle="tooltip" data-placement="top" 
+            title=" "></i>
+            <input type="range" min="256" max="400" value="256" class="custom-range centered" id="c-content-img-size">
+            <br>
+            <select id="c-content-select" class="centered custom-select">
+            </select>
+        </div>
+      </div>
+      <div class="row my-4">
+        <div class="col-md-6 offset-md-3">
+            <canvas id="c-stylized" class="centered"></canvas>
+            <br>
+            <label for="c-stylized-img-ratio">Stylization Ratio</label>
+            <i class="far fa-question-circle" data-toggle="tooltip" data-placement="top" 
+            title=" "></i>
+            <input type="range" min="0" max="100" value="50" class="custom-range centered" id="c-stylized-img-ratio">
+        </div>
+      </div>
+      <div class="row my-4">
+        <div class="col-md-5 offset-md-3">
+            <button disabled id="combine-button" type="button" class="btn btn-primary btn-block">Loading stylization model. Please wait..</button>
+        </div>
+        <div class="col-md-1">
+            <button type="button" id="c-randomize" class="btn btn-light btn-block">
+              <i class="fas fa-random" data-toggle="tooltip" data-placement="top" 
+              title="Randomize parameters"></i>
+            </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="container">
+  <div class="row my-4">
+    <div class="col-md-3 offset-md-3">
+        <select disabled id="model-select-style" class="centered custom-select">
+          <option value="mobilenet" selected="selected">快速模式 (9.6MB)</option>
+          <option value="inception">高品质模式 (36.3MB)</option>
+        </select>
+    </div>
+    <div class="col-md-3">
+        <select disabled id="model-select-transformer" class="centered custom-select">
+          <option value="separable" selected="selected">快速模式 (2.4MB)</option>
+          <option value="original">高品质模式 (7.9MB)</option>
+        </select>
+    </div>
+  </div>
+</div>
+
+<canvas id="hidden-canvas" style="display: none"></canvas>
+<div class="modal fade" id="cam-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">照相机</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <video id="webcam-video" class="centered" width="500" height="375"></video>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">取消</button>
+        <button type="button" class="btn btn-primary" id="snap-button">拍摄</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="container-fluid pt-5" style="background-color: #f5f5f5;">
+
+<!-- JQuery -->
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<!-- Bootstrap tooltips -->
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.4/umd/popper.min.js"></script>
+<!-- Bootstrap core JavaScript -->
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/js/bootstrap.min.js"></script>
+
+<script type="text/javascript">
+  $(function () {
+    $('[data-toggle="tooltip"]').tooltip()
+  })
+</script>
+</body>
+</html>
